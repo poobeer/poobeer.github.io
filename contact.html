@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>PWare</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="download.html">Download</a></li>
+                <li><a href="contact.html" class="active">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="contact-section">
+        <h2>Contact Us</h2>
+        <form id="contact-form">
+            <input type="text" id="name" name="name" placeholder="Your Name" required>
+            <input type="email" id="email" name="email" placeholder="Your Email" required>
+            <textarea id="message" name="message" placeholder="Your Message" required></textarea>
+            <button type="submit" class="btn">Send Message</button>
+        </form>
+        <p id="success-message"></p>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 PWare. All rights reserved.</p>
+    </footer>
+
+    <script type="text/javascript">
+        (function() {
+            // Initialize EmailJS with your public key
+            emailjs.init("8D4p240Qz-aeLXKOz"); // Replace with your actual public key
+        })();
+    
+        document.getElementById("contact-form").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent the default form submission
+    
+            // Collect form data
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const message = document.getElementById("message").value;
+    
+            // Validate the input fields
+            if (!name || !email || !message) {
+                alert("Please fill out all fields.");
+                return;
+            }
+    
+            // Prepare the form data
+            const formData = {
+                user_name: name,
+                user_email: email,
+                message: message
+            };
+    
+            // Send email using EmailJS
+            emailjs.send("service_nffmwjs", "template_kz10had", formData)
+                .then(function(response) {
+                    console.log("SUCCESS", response); // Log success response
+                    document.getElementById("success-message").innerText = "Your message has been sent successfully!";
+                    document.getElementById("contact-form").reset(); // Clear the form
+                }, function(error) {
+                    console.error("FAILED", error); // Log the error response
+                    document.getElementById("success-message").innerText = `Sorry, something went wrong. Please try again later. Error: ${error.text}`;
+                });
+        });
+    </script>
+     <section class="features">
+        <h2>OR</h2>
+        <div class="feature-boxes">
+            <div class="feature-box">
+                <h3>Or Contact Us Via Email</h3>
+                <p>pwareofficial@gmail.com</p>
+            </div>
+        </div>
+     </section>
+</body>
+</html>
